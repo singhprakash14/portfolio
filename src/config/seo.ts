@@ -139,7 +139,7 @@ export const structuredData = {
             applicationCategory: 'BusinessApplication',
             operatingSystem: 'Web',
             description:
-              'Flagship diamond e-commerce platform: live pricing + cold PLP optimization; sheet→R2 media sync; React Three Fiber 3D ring viewer with GLB/metal/gem materials and ring-builder sessions; headless CMS; Stripe + Sharp.',
+              'Flagship diamond e-commerce platform: live pricing + cold PLP optimization; sheet→R2 media sync; React Three Fiber 3D ring viewer with GLB/metal/gem materials and ring-builder sessions; Stripe + Sharp.',
             url: env.projectLinks.diamondAtelier,
             author: { '@id': `${SITE_CONFIG.url}/#person` },
           },

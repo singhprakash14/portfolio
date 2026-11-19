@@ -12,6 +12,11 @@ import {
   PERSONAL_PROJECTS,
   EDUCATION_TIMELINE,
 } from '../config/timeline'
+import {
+  setFieldSkill,
+  triggerFieldRipple,
+  type FieldSkillTier,
+} from '../lib/fieldEvents'
 
 export const Route = createFileRoute('/')({
   head: () => ({
@@ -184,6 +189,24 @@ function PortfolioPage() {
     })()
   }, [])
 
+  useEffect(() => {
+    const caseStudy = document.getElementById('case-study')
+    if (!caseStudy) return
+    let fired = false
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0]
+        if (!entry?.isIntersecting || fired) return
+        fired = true
+        triggerFieldRipple('case-study')
+        observer.disconnect()
+      },
+      { threshold: 0.28 },
+    )
+    observer.observe(caseStudy)
+    return () => observer.disconnect()
+  }, [])
+
   const copyEmail = () => {
     navigator.clipboard.writeText(env.email)
     setCopied(true)
@@ -319,17 +342,9 @@ function PortfolioPage() {
                 ) : null}
               </div>
             </div>
-
-            <div className="flex flex-col gap-1 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-2.5 sm:gap-y-1 text-xs font-mono text-[var(--text-secondary)] mt-3.5 mb-2 sm:mb-4">
-              <span className="font-medium text-[var(--text-primary)]">Cold PLP ~5k → ~800 (~4x)</span>
-              <span className="hidden sm:inline text-[var(--text-muted)]">&bull;</span>
-              <span className="font-medium text-[var(--text-primary)]">3D RingViewer (R3F)</span>
-              <span className="hidden sm:inline text-[var(--text-muted)]">&bull;</span>
-              <span className="font-medium text-[var(--text-primary)]">Sheet → R2 media sync</span>
-            </div>
           </div>
 
-          <div className="hidden sm:flex lg:col-span-4 items-center justify-center pt-2 lg:pt-0" aria-hidden="true">
+          <div className="flex lg:col-span-4 items-center justify-center pt-5 sm:pt-4 lg:pt-0">
             <DitherCanvas />
           </div>
         </div>
@@ -348,7 +363,18 @@ function PortfolioPage() {
 
         <div className="divide-y divide-[var(--border-subtle)] border-y border-[var(--border-subtle)]">
           {SKILL_TIERS.map((tierGroup) => (
-            <div key={tierGroup.tier} className="py-5 sm:py-6 grid sm:grid-cols-12 gap-3 sm:gap-6 items-start">
+            <div
+              key={tierGroup.tier}
+              className="py-5 sm:py-6 grid sm:grid-cols-12 gap-3 sm:gap-6 items-start transition-colors hover:bg-[var(--accent-subtle)]/40"
+              onMouseEnter={() => setFieldSkill(tierGroup.tier as FieldSkillTier)}
+              onMouseLeave={() => setFieldSkill(null)}
+              onFocusCapture={() => setFieldSkill(tierGroup.tier as FieldSkillTier)}
+              onBlurCapture={(e) => {
+                if (!e.currentTarget.contains(e.relatedTarget as Node | null)) {
+                  setFieldSkill(null)
+                }
+              }}
+            >
               <div className="sm:col-span-3">
                 <span className="text-xs font-mono text-[var(--accent-text)] tracking-wider uppercase">
                   {tierGroup.tier}
@@ -375,22 +401,128 @@ function PortfolioPage() {
         </div>
       </section>
 
-      {/* Case study: Diamond Atelier */}
-      <section id="case-study" className="mb-12 sm:mb-20 scroll-mt-24">
-        <div className="section-head">
-          <div className="flex items-center gap-2 min-w-0">
-            <span className="inline-block w-2 h-2 rounded-full bg-[var(--accent)] shrink-0"></span>
-            <h2 className="text-xs uppercase tracking-widest font-mono font-semibold text-[var(--text-primary)]">
-              Diamond Atelier: Case Study
-            </h2>
-          </div>
-          <span className="section-head-meta text-[var(--accent-text)]">
-            Performance &amp; Architecture
+      {/* Featured projects */}
+      <section id="projects" className="mb-12 sm:mb-20 scroll-mt-24">
+        <div className="section-head mb-6 sm:mb-8">
+          <h2 className="text-xs uppercase tracking-widest font-mono text-[var(--text-muted)]">
+            Featured Projects
+          </h2>
+          <span className="section-head-meta">
+            Full-Stack Commerce &bull; Client Apps
           </span>
         </div>
 
+        <div className="mb-12">
+          <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
+            <div className="flex items-center gap-2">
+              <span className="inline-block w-2 h-2 rounded-full bg-[var(--accent)]"></span>
+              <h3 className="text-xs font-mono uppercase tracking-widest font-semibold text-[var(--text-primary)]">
+                01 / Work Experience &amp; Production Systems
+              </h3>
+            </div>
+            <span className="text-[11px] font-mono text-[var(--text-muted)]">
+              Diamond Atelier &bull; Appgenix Infotech
+            </span>
+          </div>
+          <p className="text-xs text-[var(--text-secondary)] font-sans mb-6 max-w-2xl">
+            Commerce backends and client web applications engineered during full-time employment.
+          </p>
+
+          {diamondTimeline && (
+            <div className="mb-6 p-4 sm:p-8 rounded-[10px] border border-[var(--border-strong)] bg-[var(--bg-surface)]">
+              <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
+                <div className="flex flex-wrap items-center gap-2 min-w-0">
+                  <span className="text-xs font-mono font-medium text-[var(--accent-text)] uppercase tracking-wider">
+                    {diamondTimeline.company}
+                  </span>
+                  <span className="text-xs font-mono text-[var(--text-muted)]">&bull;</span>
+                  <span className="text-xs font-mono text-[var(--text-muted)]">{diamondTimeline.period}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  {diamondTimeline.projectUrl && (
+                    <a
+                      href={diamondTimeline.projectUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-[4px] text-xs font-mono border border-[var(--border-subtle)] bg-[var(--bg-canvas)] text-[var(--accent-text)] hover:text-[var(--accent)] hover:border-[var(--accent)] transition-colors no-underline cursor-pointer"
+                      title="Open Live Link"
+                    >
+                      <span>Live Link</span>
+                      <svg viewBox="0 0 16 16" width="11" height="11" fill="currentColor">
+                        <path fillRule="evenodd" d="M4.22 11.78a.75.75 0 0 1 0-1.06L9.44 5.5H5.75a.75.75 0 0 1 0-1.5h5.5a.75.75 0 0 1 .75.75v5.5a.75.75 0 0 1-1.5 0V6.56l-5.22 5.22a.75.75 0 0 1-1.06 0z" clipRule="evenodd" />
+                      </svg>
+                    </a>
+                  )}
+                  <span className="text-xs font-mono px-2 py-0.5 rounded-[4px] bg-[var(--bg-canvas)] text-[var(--text-secondary)] border border-[var(--border-subtle)]">
+                    {diamondTimeline.role}
+                  </span>
+                </div>
+              </div>
+
+              <div className="mb-3">
+                <a
+                  href={diamondTimeline.projectUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="group inline-flex items-center gap-2.5 text-inherit no-underline"
+                >
+                  <h4 className="font-serif text-2xl sm:text-4xl text-[var(--text-primary)] transition-colors group-hover:text-[var(--accent)]">
+                    {diamondTimeline.projectTitle}
+                  </h4>
+                  <svg viewBox="0 0 16 16" width="18" height="18" fill="currentColor" className="text-[var(--text-muted)] transition-transform duration-200 group-hover:text-[var(--accent)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 shrink-0">
+                    <path fillRule="evenodd" d="M4.22 11.78a.75.75 0 0 1 0-1.06L9.44 5.5H5.75a.75.75 0 0 1 0-1.5h5.5a.75.75 0 0 1 .75.75v5.5a.75.75 0 0 1-1.5 0V6.56l-5.22 5.22a.75.75 0 0 1-1.06 0z" clipRule="evenodd" />
+                  </svg>
+                </a>
+              </div>
+
+              <p className="text-base sm:text-lg text-[var(--text-secondary)] font-sans leading-relaxed max-w-3xl mb-4">
+                {diamondTimeline.projectSummary}
+              </p>
+
+              <div className="flex flex-wrap items-center gap-2 mb-5">
+                {[
+                  'Cold PLP ~5k → ~800 (~4x)',
+                  '3D RingViewer (R3F)',
+                  'Sheet → R2 media sync',
+                ].map((highlight) => (
+                  <span
+                    key={highlight}
+                    className="inline-flex items-center px-2.5 py-1 rounded-[4px] text-xs font-mono font-medium bg-[var(--accent-subtle)] text-[var(--accent-text)] border border-[var(--accent)]/20"
+                  >
+                    {highlight}
+                  </span>
+                ))}
+              </div>
+
+              <div className="flex flex-wrap gap-1.5 pt-2">
+                {diamondTimeline.skills.map((tech) => (
+                  <span
+                    key={tech}
+                    className="px-2.5 py-1 rounded-[4px] text-xs font-mono border border-[var(--border-subtle)] bg-[var(--bg-canvas)] text-[var(--text-secondary)]"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Case study: Diamond Atelier */}
+          <div id="case-study" className="mb-8 scroll-mt-24">
+            <div className="flex flex-wrap items-baseline justify-between gap-2 border-b border-[var(--border-subtle)] pb-2.5 mb-4">
+              <div className="flex items-center gap-2 min-w-0">
+                <span className="inline-block w-2 h-2 rounded-full bg-[var(--accent)] shrink-0"></span>
+                <h4 className="text-xs uppercase tracking-widest font-mono font-semibold text-[var(--text-primary)]">
+                  Diamond Atelier: Case Study
+                </h4>
+              </div>
+              <span className="section-head-meta text-[var(--accent-text)]">
+                Performance &amp; Architecture
+              </span>
+            </div>
+
         <div className="p-4 sm:p-8 rounded-[12px] border border-[var(--border-strong)] bg-[var(--bg-surface)] shadow-sm">
-          <div className="flex flex-wrap items-start sm:items-center justify-between gap-3 pb-5 sm:pb-6 border-b border-[var(--border-subtle)]">
+          <div className="pb-5 sm:pb-6 border-b border-[var(--border-subtle)]">
             <div className="min-w-0">
               <span className="text-[11px] sm:text-xs font-mono uppercase tracking-wider text-[var(--accent-text)] break-words">
                 Production E-Commerce &bull; diamondforest.com &bull;{' '}
@@ -400,19 +532,6 @@ function PortfolioPage() {
                 Cold PLP, Live Pricing, R2 Media Sync &amp; 3D Ring Viewer
               </h3>
             </div>
-            {diamondTimeline?.projectUrl && (
-              <a
-                href={diamondTimeline.projectUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-[4px] text-xs font-mono border border-[var(--border-subtle)] bg-[var(--bg-canvas)] text-[var(--accent-text)] hover:text-[var(--accent)] hover:border-[var(--accent)] transition-colors no-underline cursor-pointer"
-              >
-                <span>Live Site</span>
-                <svg viewBox="0 0 16 16" width="11" height="11" fill="currentColor">
-                  <path fillRule="evenodd" d="M4.22 11.78a.75.75 0 0 1 0-1.06L9.44 5.5H5.75a.75.75 0 0 1 0-1.5h5.5a.75.75 0 0 1 .75.75v5.5a.75.75 0 0 1-1.5 0V6.56l-5.22 5.22a.75.75 0 0 1-1.06 0z" clipRule="evenodd" />
-                </svg>
-              </a>
-            )}
           </div>
 
           <div className="grid md:grid-cols-2 gap-6 py-6 border-b border-[var(--border-subtle)]">
@@ -429,7 +548,7 @@ function PortfolioPage() {
                 02 / My Role
               </h4>
               <p className="text-sm text-[var(--text-secondary)] font-sans leading-relaxed">
-                Owned cold-PLP and pricing-path fixes, R2 media map sync after sheet commits, headless CMS for a 6-person content team, and Stripe HMAC webhooks with BullMQ recovery plus Sharp/Redis media optimization.
+                Owned cold-PLP and pricing-path fixes, R2 media map sync after sheet commits, and Stripe HMAC webhooks with BullMQ recovery plus Sharp/Redis media optimization.
               </p>
             </div>
           </div>
@@ -461,14 +580,6 @@ function PortfolioPage() {
                 </span>
                 <p className="text-xs text-[var(--text-secondary)] font-sans leading-relaxed">
                   Sheet updates catalog metadata; R2 stays photo source of truth. Sync rewrites media maps, prunes shapes not on the sheet, then invalidates PLP/PDP caches. Physical R2 deletes are intentional (replace/admin) — not automatic on every import.
-                </p>
-              </div>
-              <div className="p-4 rounded-[8px] border border-[var(--border-subtle)] bg-[var(--bg-canvas)]">
-                <span className="text-xs font-mono text-[var(--accent-text)] block mb-1 font-semibold">
-                  Headless CMS
-                </span>
-                <p className="text-xs text-[var(--text-secondary)] font-sans leading-relaxed">
-                  Content and graphics team publishes site media and catalog copy independently — developer image-change tickets fell from ~15/week to 0.
                 </p>
               </div>
               <div className="p-4 rounded-[8px] border border-[var(--border-subtle)] bg-[var(--bg-canvas)]">
@@ -521,7 +632,7 @@ function PortfolioPage() {
                 <text x="460" y="96" textAnchor="middle" fill="currentColor" fillOpacity="0.85" fontSize="10" fontFamily="monospace">calculateRingPrice</text>
                 <text x="460" y="112" textAnchor="middle" fill="currentColor" fillOpacity="0.75" fontSize="10" fontFamily="monospace">PLP minimal · /card-pricing</text>
                 <text x="460" y="128" textAnchor="middle" fill="currentColor" fillOpacity="0.65" fontSize="9" fontFamily="monospace">In-flight + Redis PLP locks</text>
-                <text x="460" y="144" textAnchor="middle" fill="currentColor" fillOpacity="0.55" fontSize="9" fontFamily="monospace">CMS · RBAC · R2 sync</text>
+                <text x="460" y="144" textAnchor="middle" fill="currentColor" fillOpacity="0.55" fontSize="9" fontFamily="monospace">RBAC · R2 media sync</text>
 
                 <path d="M548 78 L610 28" stroke="currentColor" strokeWidth="1.2" strokeOpacity="0.5" />
                 <path d="M548 96 L610 68" stroke="currentColor" strokeWidth="1.2" strokeOpacity="0.5" />
@@ -645,7 +756,7 @@ function PortfolioPage() {
             <h4 className="text-xs font-mono uppercase tracking-wider text-[var(--text-muted)] mb-3">
               06 / Measurable Results
             </h4>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
               <div className="p-3.5 rounded-[6px] border border-[var(--border-subtle)] bg-[var(--bg-canvas)]">
                 <span className="text-lg sm:text-2xl font-serif text-[var(--accent)] block break-words">~52s → ~13s</span>
                 <span className="text-xs font-mono text-[var(--text-muted)] block mt-0.5">Cold PLP (~4x)</span>
@@ -661,106 +772,10 @@ function PortfolioPage() {
                 <span className="text-xs font-mono text-[var(--text-muted)] block mt-0.5">Sharp Payload Cut</span>
                 <span className="text-[11px] font-sans text-[var(--text-secondary)] mt-1 block">WebP tiers; listing payloads cached in Redis.</span>
               </div>
-              <div className="p-3.5 rounded-[6px] border border-[var(--border-subtle)] bg-[var(--bg-canvas)]">
-                <span className="text-lg sm:text-2xl font-serif text-[var(--text-primary)] block break-words">~15/wk → 0</span>
-                <span className="text-xs font-mono text-[var(--text-muted)] block mt-0.5">Dev Content Tickets</span>
-                <span className="text-[11px] font-sans text-[var(--text-secondary)] mt-1 block">Headless CMS for a 6-person content team.</span>
-              </div>
             </div>
           </div>
         </div>
-      </section>
-
-      {/* Featured projects */}
-      <section id="projects" className="mb-12 sm:mb-20 scroll-mt-24">
-        <div className="section-head mb-6 sm:mb-8">
-          <h2 className="text-xs uppercase tracking-widest font-mono text-[var(--text-muted)]">
-            Featured Projects
-          </h2>
-          <span className="section-head-meta">
-            Full-Stack Commerce &bull; Client Apps
-          </span>
-        </div>
-
-        <div className="mb-12">
-          <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
-            <div className="flex items-center gap-2">
-              <span className="inline-block w-2 h-2 rounded-full bg-[var(--accent)]"></span>
-              <h3 className="text-xs font-mono uppercase tracking-widest font-semibold text-[var(--text-primary)]">
-                01 / Work Experience &amp; Production Systems
-              </h3>
-            </div>
-            <span className="text-[11px] font-mono text-[var(--text-muted)]">
-              Diamond Atelier &bull; Appgenix Infotech
-            </span>
-          </div>
-          <p className="text-xs text-[var(--text-secondary)] font-sans mb-6 max-w-2xl">
-            Commerce backends and client web applications engineered during full-time employment.
-          </p>
-
-          {diamondTimeline && (
-            <div className="mb-6 p-4 sm:p-8 rounded-[10px] border border-[var(--border-strong)] bg-[var(--bg-surface)]">
-              <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
-                <div className="flex flex-wrap items-center gap-2 min-w-0">
-                  <span className="text-xs font-mono font-medium text-[var(--accent-text)] uppercase tracking-wider">
-                    {diamondTimeline.company}
-                  </span>
-                  <span className="text-xs font-mono text-[var(--text-muted)]">&bull;</span>
-                  <span className="text-xs font-mono text-[var(--text-muted)]">{diamondTimeline.period}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  {diamondTimeline.projectUrl && (
-                    <a
-                      href={diamondTimeline.projectUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-[4px] text-xs font-mono border border-[var(--border-subtle)] bg-[var(--bg-canvas)] text-[var(--accent-text)] hover:text-[var(--accent)] hover:border-[var(--accent)] transition-colors no-underline cursor-pointer"
-                      title="Open Live Link"
-                    >
-                      <span>Live Link</span>
-                      <svg viewBox="0 0 16 16" width="11" height="11" fill="currentColor">
-                        <path fillRule="evenodd" d="M4.22 11.78a.75.75 0 0 1 0-1.06L9.44 5.5H5.75a.75.75 0 0 1 0-1.5h5.5a.75.75 0 0 1 .75.75v5.5a.75.75 0 0 1-1.5 0V6.56l-5.22 5.22a.75.75 0 0 1-1.06 0z" clipRule="evenodd" />
-                      </svg>
-                    </a>
-                  )}
-                  <span className="text-xs font-mono px-2 py-0.5 rounded-[4px] bg-[var(--bg-canvas)] text-[var(--text-secondary)] border border-[var(--border-subtle)]">
-                    {diamondTimeline.role}
-                  </span>
-                </div>
-              </div>
-
-              <div className="mb-3">
-                <a
-                  href={diamondTimeline.projectUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="group inline-flex items-center gap-2.5 text-inherit no-underline"
-                >
-                  <h4 className="font-serif text-2xl sm:text-4xl text-[var(--text-primary)] transition-colors group-hover:text-[var(--accent)]">
-                    {diamondTimeline.projectTitle}
-                  </h4>
-                  <svg viewBox="0 0 16 16" width="18" height="18" fill="currentColor" className="text-[var(--text-muted)] transition-transform duration-200 group-hover:text-[var(--accent)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 shrink-0">
-                    <path fillRule="evenodd" d="M4.22 11.78a.75.75 0 0 1 0-1.06L9.44 5.5H5.75a.75.75 0 0 1 0-1.5h5.5a.75.75 0 0 1 .75.75v5.5a.75.75 0 0 1-1.5 0V6.56l-5.22 5.22a.75.75 0 0 1-1.06 0z" clipRule="evenodd" />
-                  </svg>
-                </a>
-              </div>
-
-              <p className="text-base sm:text-lg text-[var(--text-secondary)] font-sans leading-relaxed max-w-3xl mb-6">
-                {diamondTimeline.projectSummary}
-              </p>
-
-              <div className="flex flex-wrap gap-1.5 pt-2">
-                {diamondTimeline.skills.map((tech) => (
-                  <span
-                    key={tech}
-                    className="px-2.5 py-1 rounded-[4px] text-xs font-mono border border-[var(--border-subtle)] bg-[var(--bg-canvas)] text-[var(--text-secondary)]"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-            </div>
-          )}
+      </div>
 
           <div className="grid sm:grid-cols-2 gap-6">
             {otherWorkTimeline.map((work) => (
