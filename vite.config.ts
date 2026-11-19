@@ -8,6 +8,8 @@ import tailwindcss from '@tailwindcss/vite'
 import { nitro } from 'nitro/vite'
 
 const config = defineConfig({
+  // GitHub project Pages: VITE_BASE=/portfolio/  |  Vercel/root: leave unset
+  base: process.env.VITE_BASE || '/',
   resolve: { tsconfigPaths: true },
   plugins: [
     devtools(),
