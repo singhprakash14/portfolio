@@ -1,0 +1,53 @@
+# Prakash Singh — Full Stack Developer
+
+> Full Stack Web Developer with expertise in JavaScript and the MERN stack. Currently Full-Stack Developer at Diamond Atelier Private Limited (diamondforest.com).
+
+## Canonical Identity
+- **Full Name**: Prakash Singh
+- **Primary Online Handle**: singhprakash14
+- **Current Role**: Full-Stack Developer at Diamond Atelier Private Limited (May 2025 – Present)
+- **Roles Sought**: Full Stack Developer / Software Engineer
+- **Location**: Kalyan, India (UTC+5:30)
+- **GitHub**: https://github.com/singhprakash14
+- **Email**: prakashsingh12320@gmail.com
+- **Phone**: +91 9307324014
+- **Resume**: /resume.pdf
+
+---
+
+## Technical Competencies
+
+- **Frontend**: HTML · CSS · JavaScript · TypeScript · React.js · Redux · Next.js
+- **Backend**: Node.js · Express.js · RESTful APIs · Payment Gateway
+- **Database & Caching**: MongoDB · PostgreSQL · Redis
+- **Tools & DevOps**: Git · Docker
+- **Core**: Data Structures & Algorithms · Debugging · Performance Optimization · Generative AI
+
+---
+
+## Work Experience
+
+1. **Diamond Forest E-Commerce** • *Diamond Atelier Private Limited*
+   - **Period**: May 2025 – Present
+   - **Role**: Full-Stack Developer
+   - **Live**: https://www.diamondforest.com/
+   - **Highlights**: REST APIs (products, cart, checkout, orders), auth middleware, payment gateway, Redis catalog caching, Docker, Next.js/React/TypeScript storefront
+
+2. **Client Web Applications (MERN)** • *Appgenix Infotech LLP*
+   - **Period**: Dec 2024 – May 2025
+   - **Role**: Full-Stack Developer
+   - **Highlights**: Modular REST APIs, MongoDB schemas, JWT/RBAC, React/Redux UIs, sprint delivery with design/QA
+
+---
+
+## Education & Certifications
+
+- **Masai School** — Fullstack Web Development (May 2023 – Feb 2024)
+- **Bharat College of Arts and Commerce** — B.Sc. Information Technology (June 2016 – December 2020)
+- **High School** — Science (PCM)
+
+---
+
+## Interests
+
+Reading · Trekking · Football · Cricket

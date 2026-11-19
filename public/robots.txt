@@ -1,3 +1,9 @@
-# https://www.robotstxt.org/robotstxt.html
+# Prakash Singh — robots.txt
 User-agent: *
-Disallow:
+Allow: /
+
+Host: https://singhprakash14.github.io
+Sitemap: https://singhprakash14.github.io/sitemap.xml
+
+# Concise agent summary: https://singhprakash14.github.io/llms.txt
+# Comprehensive context: https://singhprakash14.github.io/llms-full.txt
