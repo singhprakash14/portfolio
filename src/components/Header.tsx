@@ -1,72 +1,73 @@
+import { useEffect, useState } from 'react'
 import { Link } from '@tanstack/react-router'
 import ThemeToggle from './ThemeToggle'
 import Logo from './Logo'
 import { env } from '../config/env'
 
+const NAV_LINKS = [
+  { href: '#stack', label: 'Skills' },
+  { href: '#projects', label: 'Projects' },
+  { href: '#experience', label: 'Experience' },
+  { href: '#education', label: 'Education' },
+  { href: '#faq', label: 'FAQ' },
+  { href: '#contact', label: 'Contact' },
+] as const
+
 export default function Header() {
+  const [menuOpen, setMenuOpen] = useState(false)
+
+  useEffect(() => {
+    if (!menuOpen) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setMenuOpen(false)
+    }
+    document.addEventListener('keydown', onKey)
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.removeEventListener('keydown', onKey)
+      document.body.style.overflow = ''
+    }
+  }, [menuOpen])
+
+  const closeMenu = () => setMenuOpen(false)
+
   return (
     <header className="sticky top-0 z-50 w-full border-b border-[var(--border-subtle)] bg-[var(--bg-canvas)]/85 backdrop-blur-md transition-colors duration-200">
-      <nav className="container-narrow flex items-center justify-between py-3.5 sm:py-4">
+      <nav className="container-narrow flex items-center justify-between py-3 sm:py-4 gap-3">
         <div className="flex items-center gap-2 sm:gap-3 min-w-0">
           <Link
             to="/"
             className="group flex items-center gap-2 text-inherit no-underline"
+            onClick={closeMenu}
           >
             <Logo size="sm" />
           </Link>
           <span className="hidden text-xs text-[var(--text-muted)] font-mono sm:inline-block">
             /
           </span>
-          <span className="hidden text-xs text-[var(--text-secondary)] font-mono sm:inline-block whitespace-nowrap">
+          <span className="hidden text-xs text-[var(--text-secondary)] font-mono sm:inline-block whitespace-nowrap truncate max-w-[14rem]">
             {env.role}
           </span>
         </div>
 
         <div className="hidden md:flex items-center gap-6 text-xs font-mono">
-          <a
-            href="#stack"
-            className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors no-underline"
-          >
-            Skills
-          </a>
-          <a
-            href="#projects"
-            className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors no-underline"
-          >
-            Projects
-          </a>
-          <a
-            href="#experience"
-            className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors no-underline"
-          >
-            Experience
-          </a>
-          <a
-            href="#education"
-            className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors no-underline"
-          >
-            Education
-          </a>
-          <a
-            href="#faq"
-            className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors no-underline"
-          >
-            FAQ
-          </a>
-          <a
-            href="#contact"
-            className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors no-underline"
-          >
-            Contact
-          </a>
+          {NAV_LINKS.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors no-underline"
+            >
+              {link.label}
+            </a>
+          ))}
         </div>
 
-        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+        <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
           <a
             href={env.githubUrl}
             target="_blank"
             rel="noreferrer"
-            className="flex h-8 w-8 items-center justify-center rounded-[6px] text-[var(--text-secondary)] transition hover:bg-[var(--bg-surface)] hover:text-[var(--text-primary)]"
+            className="flex h-9 w-9 items-center justify-center rounded-[6px] text-[var(--text-secondary)] transition hover:bg-[var(--bg-surface)] hover:text-[var(--text-primary)]"
             title="GitHub Profile"
           >
             <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
@@ -75,8 +76,55 @@ export default function Header() {
           </a>
 
           <ThemeToggle />
+
+          <button
+            type="button"
+            className="md:hidden flex h-9 w-9 items-center justify-center rounded-[6px] text-[var(--text-secondary)] transition hover:bg-[var(--bg-surface)] hover:text-[var(--text-primary)]"
+            aria-expanded={menuOpen}
+            aria-controls="mobile-nav"
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            onClick={() => setMenuOpen((open) => !open)}
+          >
+            {menuOpen ? (
+              <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor" aria-hidden="true">
+                <path d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.75.75 0 1 1 1.06 1.06L9.06 8l3.22 3.22a.75.75 0 1 1-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 0 1-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06z" />
+              </svg>
+            ) : (
+              <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor" aria-hidden="true">
+                <path d="M2 4.75A.75.75 0 0 1 2.75 4h10.5a.75.75 0 0 1 0 1.5H2.75A.75.75 0 0 1 2 4.75zm0 3.25a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H2.75A.75.75 0 0 1 2 8zm.75 2.5a.75.75 0 0 0 0 1.5h10.5a.75.75 0 0 0 0-1.5H2.75z" />
+              </svg>
+            )}
+          </button>
         </div>
       </nav>
+
+      {menuOpen ? (
+        <div
+          id="mobile-nav"
+          className="md:hidden border-t border-[var(--border-subtle)] bg-[var(--bg-canvas)]"
+        >
+          <div className="container-narrow py-3 flex flex-col gap-1">
+            {NAV_LINKS.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={closeMenu}
+                className="rounded-[6px] px-3 py-3 text-sm font-mono text-[var(--text-secondary)] hover:bg-[var(--bg-surface)] hover:text-[var(--text-primary)] transition-colors no-underline"
+              >
+                {link.label}
+              </a>
+            ))}
+            <a
+              href={env.resumeUrl}
+              download="Prakash_Singh_Resume.pdf"
+              onClick={closeMenu}
+              className="mt-1 rounded-[6px] px-3 py-3 text-sm font-mono text-[var(--accent-text)] hover:bg-[var(--accent-subtle)] transition-colors no-underline"
+            >
+              Download Resume
+            </a>
+          </div>
+        </div>
+      ) : null}
     </header>
   )
 }

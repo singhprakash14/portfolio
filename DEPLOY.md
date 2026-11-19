@@ -4,13 +4,17 @@
 
 ## 1) GitHub Pages
 
-1. Repo → **Settings → Pages**
-2. **Source:** GitHub Actions
-3. First green run ke baad site:
-   - https://singhprakash14.github.io/portfolio/
+Free GitHub pe Pages **sirf public repos** pe chalta hai (private = Enterprise/upgrade).
+
+1. Repo → **Settings → General → Danger Zone → Change repository visibility → Public**
+2. **Settings → Pages → Source: GitHub Actions**
+3. Re-run **Deploy GitHub Pages** (ya `main` pe push)
+4. Site: https://singhprakash14.github.io/portfolio/
 
 Workflow: `.github/workflows/deploy-github-pages.yml`  
 Build base: `/portfolio/` (project Pages path)
+
+Private rakhna ho to Pages workflow skip karo — site Vercel pe chalegi.
 
 ## 2) Vercel
 

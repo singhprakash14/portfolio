@@ -106,6 +106,7 @@ html {
   font-family: var(--font-sans);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
 }
 
 body {
@@ -114,6 +115,41 @@ body {
   background-color: var(--bg-canvas);
   color: var(--text-primary);
   transition: background-color 0.2s ease, color 0.2s ease;
+  overflow-x: clip;
+}
+
+/* Section eyebrow rows: title left, meta right — stack on narrow phones */
+.section-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.35rem 1rem;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 0.625rem;
+  margin-bottom: 1.5rem;
+}
+
+.section-head-meta {
+  font-size: 0.75rem;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 379px) {
+  .section-head-meta {
+    display: none;
+  }
+}
+
+/* Diagrams: horizontal scroll without blowing page width */
+.diagram-scroll {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
 }
 
 ::selection {
@@ -126,8 +162,16 @@ body {
   max-width: 68rem;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 1.25rem;
-  padding-right: 1.25rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  width: 100%;
+}
+
+@media (min-width: 480px) {
+  .container-narrow {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
 }
 
 @media (min-width: 640px) {

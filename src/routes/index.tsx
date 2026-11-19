@@ -194,29 +194,29 @@ function PortfolioPage() {
   const otherWorkTimeline = WORK_TIMELINE.filter((w) => w.id !== 'diamond-atelier')
 
   return (
-    <main className="container-narrow pt-8 sm:pt-14 pb-12 sm:pb-16">
+    <main className="container-narrow pt-6 sm:pt-14 pb-12 sm:pb-16">
       {/* Hero */}
-      <section className="mb-14 sm:mb-20">
-        <div className="grid lg:grid-cols-12 gap-8 lg:gap-10 items-center">
-          <div className="lg:col-span-8">
-            <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-5">
+      <section className="mb-12 sm:mb-20">
+        <div className="grid lg:grid-cols-12 gap-6 lg:gap-10 items-center">
+          <div className="lg:col-span-8 min-w-0">
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-4 sm:mb-5">
               <Badge variant="accent" size="sm" dot>
                 {env.role}
               </Badge>
-              <span className="text-xs font-mono text-[var(--text-muted)] whitespace-nowrap">
+              <span className="text-[11px] sm:text-xs font-mono text-[var(--text-muted)]">
                 @{SITE_CONFIG.handle} &bull; {env.location} &bull; Open for work
               </span>
             </div>
 
-            <h1 className="font-serif text-4xl sm:text-6xl lg:text-[4.25rem] font-normal tracking-tight text-[var(--text-primary)] mb-5 leading-[1.08] sm:leading-[1.06]">
+            <h1 className="font-serif text-[2.35rem] sm:text-6xl lg:text-[4.25rem] font-normal tracking-tight text-[var(--text-primary)] mb-4 sm:mb-5 leading-[1.08] sm:leading-[1.06]">
               {env.siteName} <br />
-              <span className="italic text-[var(--accent)] font-serif text-3xl sm:text-5xl lg:text-[3.5rem] block mt-1">
+              <span className="italic text-[var(--accent)] font-serif text-[1.85rem] sm:text-5xl lg:text-[3.5rem] block mt-1">
                 Full Stack Developer.
               </span>
             </h1>
 
-            <div className="mb-6 max-w-xl space-y-2.5">
-              <p className="text-base sm:text-lg text-[var(--text-primary)] font-sans leading-relaxed">
+            <div className="mb-5 sm:mb-6 max-w-xl space-y-2.5">
+              <p className="text-[0.95rem] sm:text-lg text-[var(--text-primary)] font-sans leading-relaxed">
                 Dynamic Full Stack Web Developer with expertise in JavaScript and the MERN stack, adept at quickly learning and implementing new technologies like Generative AI.
               </p>
               <p className="text-sm text-[var(--text-secondary)] font-sans leading-relaxed">
@@ -224,14 +224,15 @@ function PortfolioPage() {
               </p>
             </div>
 
-            <div className="flex items-center gap-2 sm:gap-2.5 flex-nowrap overflow-x-auto py-1">
+            {/* Mobile: tarang-style stacked CTAs; desktop: inline row */}
+            <div className="flex flex-col gap-2.5 w-full sm:flex-row sm:flex-wrap sm:items-center">
               <Button
                 as="a"
                 href={env.resumeUrl}
                 download="Prakash_Singh_Resume.pdf"
                 variant="primary"
                 size="md"
-                className="whitespace-nowrap shrink-0"
+                className="w-full sm:w-auto justify-center whitespace-nowrap"
                 title="Download Resume (PDF)"
               >
                 <svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor">
@@ -256,7 +257,7 @@ function PortfolioPage() {
                   }}
                   variant="secondary"
                   size="md"
-                  className="cursor-pointer whitespace-nowrap shrink-0"
+                  className="w-full sm:w-auto justify-center cursor-pointer whitespace-nowrap"
                 >
                   <span>Book a 30m Call</span>
                 </Button>
@@ -266,7 +267,7 @@ function PortfolioPage() {
                   href={`mailto:${env.email}`}
                   variant="secondary"
                   size="md"
-                  className="whitespace-nowrap shrink-0"
+                  className="w-full sm:w-auto justify-center whitespace-nowrap"
                 >
                   <span>Email Me</span>
                 </Button>
@@ -277,7 +278,7 @@ function PortfolioPage() {
                 onClick={copyEmail}
                 variant="secondary"
                 size="md"
-                className="whitespace-nowrap shrink-0"
+                className="w-full sm:w-auto justify-center whitespace-nowrap"
               >
                 {copied ? (
                   <span className="text-[var(--accent)] font-medium">Copied!</span>
@@ -286,57 +287,61 @@ function PortfolioPage() {
                 )}
               </Button>
 
-              <a
-                href={SITE_CONFIG.links.github}
-                target="_blank"
-                rel="noreferrer"
-                aria-label="GitHub Profile"
-                title="GitHub"
-                className="inline-flex items-center justify-center w-10 h-10 rounded-[6px] border border-[var(--border-subtle)] bg-[var(--bg-surface)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-[var(--border-strong)] transition-colors shrink-0"
-              >
-                <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
-                  <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
-                </svg>
-              </a>
-
-              {SITE_CONFIG.links.linkedin ? (
+              <div className="grid grid-cols-2 gap-2.5 w-full sm:contents">
                 <a
-                  href={SITE_CONFIG.links.linkedin}
+                  href={SITE_CONFIG.links.github}
                   target="_blank"
                   rel="noreferrer"
-                  aria-label="LinkedIn Profile"
-                  title="LinkedIn"
-                  className="inline-flex items-center justify-center w-10 h-10 rounded-[6px] border border-[var(--border-subtle)] bg-[var(--bg-surface)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-[var(--border-strong)] transition-colors shrink-0"
+                  aria-label="GitHub Profile"
+                  title="GitHub"
+                  className="inline-flex items-center justify-center gap-2 h-10 px-4 sm:h-10 sm:w-10 sm:px-0 rounded-[6px] border border-[var(--border-subtle)] bg-[var(--bg-surface)] text-sm font-ui font-medium text-[var(--text-primary)] hover:border-[var(--border-strong)] transition-colors no-underline"
                 >
-                  <svg viewBox="0 0 16 16" width="15" height="15" fill="currentColor">
-                    <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z" />
+                  <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor" aria-hidden="true">
+                    <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
                   </svg>
+                  <span className="sm:hidden">GitHub</span>
                 </a>
-              ) : null}
+
+                {SITE_CONFIG.links.linkedin ? (
+                  <a
+                    href={SITE_CONFIG.links.linkedin}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label="LinkedIn Profile"
+                    title="LinkedIn"
+                    className="inline-flex items-center justify-center gap-2 h-10 px-4 sm:h-10 sm:w-10 sm:px-0 rounded-[6px] border border-[var(--border-subtle)] bg-[var(--bg-surface)] text-sm font-ui font-medium text-[var(--text-primary)] hover:border-[var(--border-strong)] transition-colors no-underline"
+                  >
+                    <svg viewBox="0 0 16 16" width="15" height="15" fill="currentColor" aria-hidden="true">
+                      <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z" />
+                    </svg>
+                    <span className="sm:hidden">LinkedIn</span>
+                  </a>
+                ) : null}
+              </div>
             </div>
 
-            <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-xs font-mono text-[var(--text-secondary)] mt-3.5 mb-4">
+            <div className="flex flex-col gap-1 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-2.5 sm:gap-y-1 text-xs font-mono text-[var(--text-secondary)] mt-3.5 mb-2 sm:mb-4">
               <span className="font-medium text-[var(--text-primary)]">Cold PLP ~5k → ~800 (~4x)</span>
-              <span className="text-[var(--text-muted)]">&bull;</span>
+              <span className="hidden sm:inline text-[var(--text-muted)]">&bull;</span>
               <span className="font-medium text-[var(--text-primary)]">3D RingViewer (R3F)</span>
-              <span className="text-[var(--text-muted)]">&bull;</span>
+              <span className="hidden sm:inline text-[var(--text-muted)]">&bull;</span>
               <span className="font-medium text-[var(--text-primary)]">Sheet → R2 media sync</span>
             </div>
           </div>
 
-          <div className="lg:col-span-4 flex items-center justify-center pt-6 lg:pt-0" aria-hidden="true">
+          <div className="hidden sm:flex lg:col-span-4 items-center justify-center pt-2 lg:pt-0" aria-hidden="true">
             <DitherCanvas />
           </div>
         </div>
       </section>
 
       {/* Technical Skills — 2nd section, above experience */}
-      <section id="stack" className="mb-14 sm:mb-20 scroll-mt-24">
-        <div className="flex items-baseline justify-between border-b border-[var(--border-subtle)] pb-2.5 mb-6">
+      <section id="stack" className="mb-12 sm:mb-20 scroll-mt-24">
+        <div className="section-head">
           <h2 className="text-xs uppercase tracking-widest font-mono text-[var(--text-muted)]">
             Technical Skills
           </h2>
-          <span className="text-xs font-mono text-[var(--accent-text)]">
+          <span className="section-head-meta text-[var(--accent-text)]">
             Languages &bull; Frontend &bull; Backend &bull; Cloud
           </span>
         </div>
@@ -371,27 +376,27 @@ function PortfolioPage() {
       </section>
 
       {/* Case study: Diamond Atelier */}
-      <section id="case-study" className="mb-14 sm:mb-20 scroll-mt-24">
-        <div className="flex items-baseline justify-between border-b border-[var(--border-subtle)] pb-2.5 mb-6">
-          <div className="flex items-center gap-2">
-            <span className="inline-block w-2 h-2 rounded-full bg-[var(--accent)]"></span>
+      <section id="case-study" className="mb-12 sm:mb-20 scroll-mt-24">
+        <div className="section-head">
+          <div className="flex items-center gap-2 min-w-0">
+            <span className="inline-block w-2 h-2 rounded-full bg-[var(--accent)] shrink-0"></span>
             <h2 className="text-xs uppercase tracking-widest font-mono font-semibold text-[var(--text-primary)]">
               Diamond Atelier: Case Study
             </h2>
           </div>
-          <span className="text-xs font-mono text-[var(--accent-text)]">
+          <span className="section-head-meta text-[var(--accent-text)]">
             Performance &amp; Architecture
           </span>
         </div>
 
-        <div className="p-6 sm:p-8 rounded-[12px] border border-[var(--border-strong)] bg-[var(--bg-surface)] shadow-sm">
-          <div className="flex flex-wrap items-center justify-between gap-3 pb-6 border-b border-[var(--border-subtle)]">
-            <div>
-              <span className="text-xs font-mono uppercase tracking-wider text-[var(--accent-text)]">
+        <div className="p-4 sm:p-8 rounded-[12px] border border-[var(--border-strong)] bg-[var(--bg-surface)] shadow-sm">
+          <div className="flex flex-wrap items-start sm:items-center justify-between gap-3 pb-5 sm:pb-6 border-b border-[var(--border-subtle)]">
+            <div className="min-w-0">
+              <span className="text-[11px] sm:text-xs font-mono uppercase tracking-wider text-[var(--accent-text)] break-words">
                 Production E-Commerce &bull; diamondforest.com &bull;{' '}
                 {diamondTimeline?.period || 'May 2025 – Present'}
               </span>
-              <h3 className="font-serif text-2xl sm:text-3xl text-[var(--text-primary)] mt-1">
+              <h3 className="font-serif text-xl sm:text-3xl text-[var(--text-primary)] mt-1 leading-snug">
                 Cold PLP, Live Pricing, R2 Media Sync &amp; 3D Ring Viewer
               </h3>
             </div>
@@ -489,10 +494,10 @@ function PortfolioPage() {
             <h4 className="text-xs font-mono uppercase tracking-wider text-[var(--text-muted)] mb-4">
               04 / System Architecture
             </h4>
-            <div className="w-full overflow-x-auto p-4 rounded-[8px] border border-[var(--border-subtle)] bg-[var(--bg-canvas)]">
+            <div className="diagram-scroll p-3 sm:p-4 rounded-[8px] border border-[var(--border-subtle)] bg-[var(--bg-canvas)]">
               <svg
                 viewBox="0 0 920 220"
-                className="w-full min-w-[780px] h-auto text-[var(--text-primary)]"
+                className="w-full min-w-[640px] sm:min-w-[780px] h-auto text-[var(--text-primary)]"
                 fill="none"
                 role="img"
                 aria-label="Diamond Forest pricing, PLP, and media architecture"
@@ -588,10 +593,10 @@ function PortfolioPage() {
                 </p>
               </div>
             </div>
-            <div className="w-full overflow-x-auto p-4 rounded-[8px] border border-[var(--border-subtle)] bg-[var(--bg-canvas)]">
+            <div className="diagram-scroll p-3 sm:p-4 rounded-[8px] border border-[var(--border-subtle)] bg-[var(--bg-canvas)]">
               <svg
                 viewBox="0 0 920 170"
-                className="w-full min-w-[780px] h-auto text-[var(--text-primary)]"
+                className="w-full min-w-[640px] sm:min-w-[780px] h-auto text-[var(--text-primary)]"
                 fill="none"
                 role="img"
                 aria-label="Diamond Forest 3D ring viewer architecture"
@@ -640,24 +645,24 @@ function PortfolioPage() {
             <h4 className="text-xs font-mono uppercase tracking-wider text-[var(--text-muted)] mb-3">
               06 / Measurable Results
             </h4>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
               <div className="p-3.5 rounded-[6px] border border-[var(--border-subtle)] bg-[var(--bg-canvas)]">
-                <span className="text-xl sm:text-2xl font-serif text-[var(--accent)] block">~52s → ~13s</span>
+                <span className="text-lg sm:text-2xl font-serif text-[var(--accent)] block break-words">~52s → ~13s</span>
                 <span className="text-xs font-mono text-[var(--text-muted)] block mt-0.5">Cold PLP (~4x)</span>
                 <span className="text-[11px] font-sans text-[var(--text-secondary)] mt-1 block">~5k → ~800 membership + locks; cached ~1.8s.</span>
               </div>
               <div className="p-3.5 rounded-[6px] border border-[var(--border-subtle)] bg-[var(--bg-canvas)]">
-                <span className="text-xl sm:text-2xl font-serif text-[var(--text-primary)] block">19.8s → 1.2–1.4s</span>
+                <span className="text-lg sm:text-2xl font-serif text-[var(--text-primary)] block break-words">19.8s → 1.2–1.4s</span>
                 <span className="text-xs font-mono text-[var(--text-muted)] block mt-0.5">Listing Pricing</span>
                 <span className="text-[11px] font-sans text-[var(--text-secondary)] mt-1 block">Minimal default cell; full matrix deferred to PDP.</span>
               </div>
               <div className="p-3.5 rounded-[6px] border border-[var(--border-subtle)] bg-[var(--bg-canvas)]">
-                <span className="text-xl sm:text-2xl font-serif text-[var(--text-primary)] block">82.3%</span>
+                <span className="text-lg sm:text-2xl font-serif text-[var(--text-primary)] block">82.3%</span>
                 <span className="text-xs font-mono text-[var(--text-muted)] block mt-0.5">Sharp Payload Cut</span>
                 <span className="text-[11px] font-sans text-[var(--text-secondary)] mt-1 block">WebP tiers; listing payloads cached in Redis.</span>
               </div>
               <div className="p-3.5 rounded-[6px] border border-[var(--border-subtle)] bg-[var(--bg-canvas)]">
-                <span className="text-xl sm:text-2xl font-serif text-[var(--text-primary)] block">~15/wk → 0</span>
+                <span className="text-lg sm:text-2xl font-serif text-[var(--text-primary)] block break-words">~15/wk → 0</span>
                 <span className="text-xs font-mono text-[var(--text-muted)] block mt-0.5">Dev Content Tickets</span>
                 <span className="text-[11px] font-sans text-[var(--text-secondary)] mt-1 block">Headless CMS for a 6-person content team.</span>
               </div>
@@ -667,14 +672,12 @@ function PortfolioPage() {
       </section>
 
       {/* Featured projects */}
-      <section id="projects" className="mb-14 sm:mb-20 scroll-mt-24">
-        <div className="flex items-baseline justify-between border-b border-[var(--border-subtle)] pb-2.5 mb-8">
-          <div>
-            <h2 className="text-xs uppercase tracking-widest font-mono text-[var(--text-muted)]">
-              Featured Projects
-            </h2>
-          </div>
-          <span className="text-xs font-mono text-[var(--text-muted)]">
+      <section id="projects" className="mb-12 sm:mb-20 scroll-mt-24">
+        <div className="section-head mb-6 sm:mb-8">
+          <h2 className="text-xs uppercase tracking-widest font-mono text-[var(--text-muted)]">
+            Featured Projects
+          </h2>
+          <span className="section-head-meta">
             Full-Stack Commerce &bull; Client Apps
           </span>
         </div>
@@ -696,9 +699,9 @@ function PortfolioPage() {
           </p>
 
           {diamondTimeline && (
-            <div className="mb-6 p-6 sm:p-8 rounded-[10px] border border-[var(--border-strong)] bg-[var(--bg-surface)]">
+            <div className="mb-6 p-4 sm:p-8 rounded-[10px] border border-[var(--border-strong)] bg-[var(--bg-surface)]">
               <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
-                <div className="flex items-center gap-2">
+                <div className="flex flex-wrap items-center gap-2 min-w-0">
                   <span className="text-xs font-mono font-medium text-[var(--accent-text)] uppercase tracking-wider">
                     {diamondTimeline.company}
                   </span>
@@ -733,7 +736,7 @@ function PortfolioPage() {
                   rel="noreferrer"
                   className="group inline-flex items-center gap-2.5 text-inherit no-underline"
                 >
-                  <h4 className="font-serif text-3xl sm:text-4xl text-[var(--text-primary)] transition-colors group-hover:text-[var(--accent)]">
+                  <h4 className="font-serif text-2xl sm:text-4xl text-[var(--text-primary)] transition-colors group-hover:text-[var(--accent)]">
                     {diamondTimeline.projectTitle}
                   </h4>
                   <svg viewBox="0 0 16 16" width="18" height="18" fill="currentColor" className="text-[var(--text-muted)] transition-transform duration-200 group-hover:text-[var(--accent)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 shrink-0">
@@ -766,14 +769,14 @@ function PortfolioPage() {
                 className="p-5 sm:p-6 rounded-[10px] border border-[var(--border-subtle)] bg-[var(--bg-surface)] flex flex-col hover:border-[var(--border-strong)] transition-colors"
               >
                 <div className="flex-1 flex flex-col">
-                  <div className="flex items-center justify-between mb-3 text-xs font-mono text-[var(--text-muted)]">
-                    <div className="flex items-center gap-1.5">
+                  <div className="flex flex-wrap items-center justify-between gap-2 mb-3 text-xs font-mono text-[var(--text-muted)]">
+                    <div className="flex flex-wrap items-center gap-1.5 min-w-0">
                       <span className="px-1.5 py-0.5 rounded-[3px] text-[10px] font-mono uppercase border border-[var(--border-subtle)] bg-[var(--bg-canvas)] text-[var(--text-secondary)]">
                         {work.company}
                       </span>
-                      <span>&bull; {work.period}</span>
+                      <span className="break-words">&bull; {work.period}</span>
                     </div>
-                    <span className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider">
+                    <span className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider shrink-0">
                       Case Study
                     </span>
                   </div>
@@ -873,14 +876,12 @@ function PortfolioPage() {
       </section>
 
       {/* Experience */}
-      <section id="experience" className="mb-14 sm:mb-20 scroll-mt-24">
-        <div className="flex items-baseline justify-between border-b border-[var(--border-subtle)] pb-2.5 mb-6">
+      <section id="experience" className="mb-12 sm:mb-20 scroll-mt-24">
+        <div className="section-head">
           <h2 className="text-xs uppercase tracking-widest font-mono text-[var(--text-muted)]">
             Work Experience
           </h2>
-          <span className="text-xs font-mono text-[var(--text-muted)]">
-            Career Timeline
-          </span>
+          <span className="section-head-meta">Career Timeline</span>
         </div>
 
         <div className="divide-y divide-[var(--border-subtle)] border-y border-[var(--border-subtle)]">
@@ -910,14 +911,12 @@ function PortfolioPage() {
       </section>
 
       {/* Education */}
-      <section id="education" className="mb-14 sm:mb-20 scroll-mt-24">
-        <div className="flex items-baseline justify-between border-b border-[var(--border-subtle)] pb-2.5 mb-6">
+      <section id="education" className="mb-12 sm:mb-20 scroll-mt-24">
+        <div className="section-head">
           <h2 className="text-xs uppercase tracking-widest font-mono text-[var(--text-muted)]">
             Education
           </h2>
-          <span className="text-xs font-mono text-[var(--text-muted)]">
-            Academic &amp; Certifications
-          </span>
+          <span className="section-head-meta">Academic &amp; Certifications</span>
         </div>
 
         <div className="divide-y divide-[var(--border-subtle)] border-y border-[var(--border-subtle)]">
@@ -946,12 +945,12 @@ function PortfolioPage() {
       </section>
 
       {/* How I work */}
-      <section id="how-i-work" className="mb-14 sm:mb-20 scroll-mt-24">
-        <div className="flex items-baseline justify-between border-b border-[var(--border-subtle)] pb-2.5 mb-6">
+      <section id="how-i-work" className="mb-12 sm:mb-20 scroll-mt-24">
+        <div className="section-head">
           <h2 className="text-xs uppercase tracking-widest font-mono text-[var(--text-muted)]">
             How I Work &bull; Engineering Discipline
           </h2>
-          <span className="text-xs font-mono text-[var(--accent-text)]">
+          <span className="section-head-meta text-[var(--accent-text)]">
             APIs &bull; Security &bull; Performance
           </span>
         </div>
@@ -979,14 +978,12 @@ function PortfolioPage() {
       </section>
 
       {/* FAQ */}
-      <section id="faq" className="mb-14 sm:mb-20 scroll-mt-24">
-        <div className="flex items-baseline justify-between border-b border-[var(--border-subtle)] pb-2.5 mb-6">
+      <section id="faq" className="mb-12 sm:mb-20 scroll-mt-24">
+        <div className="section-head">
           <h2 className="text-xs uppercase tracking-widest font-mono text-[var(--text-muted)]">
             FAQ &bull; About {env.siteName}
           </h2>
-          <span className="text-xs font-mono text-[var(--text-muted)]">
-            First-Person Answers
-          </span>
+          <span className="section-head-meta">First-Person Answers</span>
         </div>
 
         <div className="divide-y divide-[var(--border-subtle)] border-y border-[var(--border-subtle)]">
@@ -1011,16 +1008,16 @@ function PortfolioPage() {
 
       {/* Contact */}
       <section id="contact" className="scroll-mt-24">
-        <div className="flex items-baseline justify-between border-b border-[var(--border-subtle)] pb-2.5 mb-6">
+        <div className="section-head">
           <h2 className="text-xs uppercase tracking-widest font-mono text-[var(--text-muted)]">
             Contact &amp; Logistics
           </h2>
-          <span className="text-xs font-mono text-[var(--text-muted)]">
+          <span className="section-head-meta truncate max-w-[14rem] sm:max-w-none">
             {env.email}
           </span>
         </div>
 
-        <div className="mb-8 p-5 sm:p-6 rounded-[8px] border border-[var(--border-subtle)] bg-[var(--bg-surface)] max-w-2xl">
+        <div className="mb-8 p-4 sm:p-6 rounded-[8px] border border-[var(--border-subtle)] bg-[var(--bg-surface)] max-w-2xl">
           <div className="flex items-center gap-2 mb-4">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
             <h4 className="text-xs font-mono uppercase tracking-widest font-semibold text-[var(--text-primary)]">
@@ -1055,21 +1052,33 @@ function PortfolioPage() {
             Open to full-time Full Stack Developer roles. Whether you have an open requisition or a product to ship, my inbox is open.
           </p>
 
-          <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
-            <Button as="a" href={`mailto:${env.email}`} variant="primary" size="md">
+          <div className="flex flex-col gap-2.5 w-full sm:flex-row sm:flex-wrap sm:items-center sm:gap-3">
+            <Button
+              as="a"
+              href={`mailto:${env.email}`}
+              variant="primary"
+              size="md"
+              className="w-full sm:w-auto justify-center"
+            >
               Email Me
             </Button>
 
             <a
               href={env.resumeUrl}
               download="Prakash_Singh_Resume.pdf"
-              className="inline-flex items-center gap-2 px-3.5 py-2 rounded-[6px] text-xs font-mono font-medium border border-[var(--border-strong)] bg-[var(--bg-surface)] text-[var(--text-primary)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors no-underline shadow-sm"
+              className="inline-flex items-center justify-center gap-2 h-10 px-3.5 rounded-[6px] text-xs font-mono font-medium border border-[var(--border-strong)] bg-[var(--bg-surface)] text-[var(--text-primary)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors no-underline shadow-sm w-full sm:w-auto"
               title="Download Resume PDF"
             >
               <span>Download Resume (PDF)</span>
             </a>
 
-            <Button type="button" onClick={copyEmail} variant="secondary" size="md">
+            <Button
+              type="button"
+              onClick={copyEmail}
+              variant="secondary"
+              size="md"
+              className="w-full sm:w-auto justify-center"
+            >
               {copied ? (
                 <span className="text-[var(--accent)] font-medium">Copied!</span>
               ) : (
