@@ -192,7 +192,7 @@ export const structuredData = {
           name: 'How can you contact me?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: `You can email me at ${env.email} or explore my GitHub profile at ${env.githubUrl}.`,
+            text: `You can email me at ${env.email}, connect on LinkedIn at https://www.linkedin.com/in/prakash-singh14, or explore my GitHub profile at ${env.githubUrl}.`,
           },
         },
       ],

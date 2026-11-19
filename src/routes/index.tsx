@@ -163,7 +163,7 @@ const FAQS = [
   },
   {
     q: 'How can I get in touch?',
-    a: `Email me at ${env.email}, call or WhatsApp ${env.phone}, or review my code on GitHub (${env.githubUrl}).`,
+    a: `Email me at ${env.email}, call or WhatsApp ${env.phone}, connect on LinkedIn (https://www.linkedin.com/in/prakash-singh14), or review my code on GitHub (${env.githubUrl}).`,
   },
 ]
 

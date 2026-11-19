@@ -13,7 +13,9 @@ export const env = {
   email: import.meta.env.VITE_EMAIL || 'prakashsingh12320@gmail.com',
   githubUrl:
     import.meta.env.VITE_GITHUB_URL || 'https://github.com/singhprakash14',
-  linkedinUrl: import.meta.env.VITE_LINKEDIN_URL || '',
+  linkedinUrl:
+    import.meta.env.VITE_LINKEDIN_URL ||
+    'https://www.linkedin.com/in/prakash-singh14',
   twitterHandle: import.meta.env.VITE_TWITTER_HANDLE || '',
 
   // Cal.com Meeting Booking (optional)

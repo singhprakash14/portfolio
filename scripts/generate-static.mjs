@@ -7,7 +7,7 @@ async function generate() {
   const serverUrl = pathToFileURL(serverPath).href
   const { default: server } = await import(serverUrl)
 
-  const requestUrl = 'https://diwakarsharma2216.github.io/'
+  const requestUrl = 'https://singhprakash14.github.io/'
   const request = new Request(requestUrl, {
     headers: {
       accept: 'text/html',
