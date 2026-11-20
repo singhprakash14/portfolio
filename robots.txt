@@ -1,0 +1,8 @@
+# Prakash Singh — robots.txt
+User-agent: *
+Allow: /
+
+Host: https://singhprakash14.github.io/portfolio
+Sitemap: https://singhprakash14.github.io/portfolio/sitemap.xml
+
+# Concise agent summary: https://singhprakash14.github.io/portfolio/llms.txt

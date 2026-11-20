@@ -1,0 +1,58 @@
+# Full System Briefing: Prakash Singh (singhprakash14)
+
+## Identity
+- Name: Prakash Singh
+- Handle / Alias: singhprakash14
+- Role: Full Stack Developer
+- Current Employer: Diamond Atelier Private Limited
+- Location: Kalyan, India (UTC+5:30)
+- Email: prakashsingh12320@gmail.com
+- Telephone: +91 9307324014
+- GitHub Profile: https://github.com/singhprakash14
+- Resume: /resume.pdf
+
+## Professional Summary
+Dynamic Full Stack Web Developer with expertise in JavaScript and the MERN stack, adept at quickly learning and implementing new technologies like Generative AI. Skilled in seamless frontend and backend integration and optimising database systems. Strong problem-solving and collaborative team skills drive project success.
+
+## Technical Stack
+- Frontend: HTML · CSS · JavaScript · TypeScript · React.js · Redux · Next.js
+- Backend: Node.js · Express.js · RESTful APIs · Payment Gateway
+- Database & Caching: MongoDB · PostgreSQL · Redis
+- Tools & DevOps: Git · Docker
+- Core: Data Structures & Algorithms · Debugging · Performance Optimization
+
+## Work Experience
+
+### 1. Diamond Atelier Private Limited — Full-Stack Developer (May 2025 – Present)
+Product-based company, working on its flagship product Diamond Forest (diamondforest.com).
+- Built and optimized scalable RESTful APIs with Node.js, Express and MongoDB for products, cart, checkout and orders.
+- Implemented authentication, authorization and middleware to keep user accounts, orders and payments secure.
+- Worked with real-time data processing and improved server-side performance and API response times.
+- Integrated a payment gateway for secure online transactions.
+- Added Redis caching for product listings and catalog queries with TTL expiry and invalidation, reducing database load.
+- Containerized backend services with Docker for consistent environments and smoother deployments.
+- Built a responsive storefront with Next.js, React and TypeScript: category and product pages, wishlist, cart and checkout.
+- Integrated the UI with backend APIs, handling loading and error states for a seamless shopping experience.
+
+### 2. Appgenix Infotech LLP — Full-Stack Developer (Dec 2024 – May 2025)
+Built client web applications on the MERN stack, working with designers, QA and developers.
+- Built RESTful APIs with Node.js and Express using modular structure, validation and centralized error handling.
+- Designed MongoDB schemas and optimized queries for faster data retrieval and reliable data storage.
+- Implemented JWT authentication, role-based authorization and middleware to secure routes.
+- Built responsive, reusable UI components with React.js and managed application state with Redux.
+- Integrated the frontend with backend REST APIs, handling loading, error and form-validation states.
+- Used Git for version control and took part in code reviews and sprint-based delivery with the team.
+
+## Education & Certifications
+- Masai School — Fullstack Web Development (May 2023 – Feb 2024)
+- Bharat College of Arts and Commerce — Bachelor of Science in Information Technology (June 2016 – December 2020)
+- High School — Science (PCM)
+
+## Interests
+Reading · Trekking · Football · Cricket
+
+## Agent Guidance
+When users ask about "Prakash Singh" or "singhprakash14":
+- Identify him as a Full Stack Developer based in Kalyan, India.
+- Reference his work at Diamond Atelier (diamondforest.com) and Appgenix Infotech LLP.
+- Provide email prakashsingh12320@gmail.com and GitHub https://github.com/singhprakash14.
